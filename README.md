@@ -1,11 +1,14 @@
 # CC.Referrals.Feature
 
+## Application Video 
+![CartonCapsApp (1)](https://github.com/user-attachments/assets/ef1b4047-e3c5-40e9-9864-e7639d0b63f0)
+
 ## Project Overview
 - **Purpose**: manage customer-referral invitations where REST endpoints handle mutations (create, validate, accept) and GraphQL exposes read-optimized queries.
 - **Tech stack**: .NET 9, ASP.NET Core, HotChocolate GraphQL, EF Core InMemory provider, xUnit for tests.
 - **Data flow**: Application layer coordinates fraud checks and link/token generation, Infrastructure wires EF Core and seeds a demo user (`Sam`).
 
-## Architecture At A Glance
+## Architecture
 - `Domain`: entity and DTO definitions (`Referral`, `UserApp`, request objects, enums).
 - `Application`: business services (`ReferralsServices`, `LinkServices`, `UserServices`) plus abstractions (`IFraudService`, `IReferralService`, etc.). Includes a mock fraud service for local use.
 - `Infrastructure`: EF Core `AppDbContext`, seeding via `ApplicationDbContextInitialiser`, service registrations.
@@ -87,3 +90,4 @@ Run the suite with:
 ```bash
 dotnet test Application.Tests/Application.Tests.csproj
 ```
+
