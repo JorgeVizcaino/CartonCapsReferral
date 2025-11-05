@@ -1,0 +1,51 @@
+@api_HostAddress = https://localhost:7141
+@referralCode = SAM-3F4X9K
+@slug = REPLACE-WITH-SLUG
+@token = REPLACE-WITH-TOKEN
+
+
+###
+### Create a referral for the seeded user
+POST {{api_HostAddress}}/referrals
+Content-Type: application/json
+
+{
+  "campaign": "spring-cashback"
+}
+
+###
+### Validate a referral slug and code pair
+POST {{api_HostAddress}}/referrals/ReferralValidation
+Content-Type: application/json
+
+{
+  "referralCode": "{{referralCode}}",
+  "slug": "{{slug}}"
+}
+
+###
+### Accept a referral using its token
+POST {{api_HostAddress}}/referrals/{{token}}/accept
+Content-Type: application/json
+
+###
+### Run a GraphQL list query
+POST {{api_HostAddress}}/graphql
+Content-Type: application/json
+
+{
+  "query": "query ListReferrals { referral(first: 10) { nodes { id referralCode status slug link token expiresAt expiresAt } } }"
+}
+
+###
+
+### Check referral status for the seeded user by code
+POST {{api_HostAddress}}/graphql
+Content-Type: application/json
+{
+  "query": "query ReferralStatus($code: String!) { referral(where: { referralCode: { eq: $code } }) { nodes { id referralCode status tokenConsumedUtc } } }",
+  "variables": {
+    "code": "{{referralCode}}"
+  }
+}
+###
