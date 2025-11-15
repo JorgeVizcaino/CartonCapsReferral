@@ -15,5 +15,22 @@ namespace Infrastructure.Data
 
         public DbSet<UserApp> Users => Set<UserApp>();
         public DbSet<Referral> Referrals => Set<Referral>();
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Referral>(entity =>
+            {
+                entity.Property(r => r.ReferralCode).IsRequired();
+                entity.Property(r => r.Token).IsRequired();
+                entity.Property(r => r.Slug).IsRequired();
+                entity.Property(r => r.Status).HasConversion<int>();
+
+                entity.HasIndex(r => r.Token).IsUnique();
+                entity.HasIndex(r => r.Slug).IsUnique();
+                entity.HasIndex(r => new { r.ReferrerUserId, r.IdempotencyKey }).IsUnique();
+            });
+        }
     }
 }

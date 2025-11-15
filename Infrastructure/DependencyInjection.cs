@@ -14,7 +14,12 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<AppDbContext>(o => o.UseInMemoryDatabase("referrals"));
+            var connectionString = configuration.GetConnectionString("Database") ?? "Data Source=referrals.db";
+
+            services.AddDbContext<AppDbContext>(o =>
+            {
+                o.UseSqlite(connectionString);
+            });
 
             services.AddScoped<IAppDbContext>(provider => provider.GetRequiredService<AppDbContext>());
 

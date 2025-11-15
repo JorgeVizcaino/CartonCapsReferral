@@ -11,5 +11,7 @@ namespace Domain.Dto
         public required string ReferralCode { get; set; }
 
         public required string Slug { get; set; }
+
+        public string? VendorSignature { get; set; }
     }
 }

@@ -11,6 +11,7 @@ namespace Domain.Dto
     public class ReferralRequest
     {        
         public string? Campaign { get; set; }
+        public string? IdempotencyKey { get; set; }
         [JsonIgnore]
         public Guid UserId { get; set; }
     }

@@ -1,13 +1,9 @@
 ﻿using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Linq;
-using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace Infrastructure.Data
@@ -43,7 +39,7 @@ namespace Infrastructure.Data
         {
             try
             {
-                await _context.Database.EnsureCreatedAsync();
+                await _context.Database.MigrateAsync();
             }
             catch (Exception ex)
             {

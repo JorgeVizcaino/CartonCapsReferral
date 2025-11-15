@@ -9,7 +9,9 @@ namespace Domain.Enums
     public enum ReferralStatus
     {
         Pending = 0,
-        Accepted = 1,
-        Expired = 2
+        Reserved = 1,
+        Accepted = 2,
+        Expired = 3,
+        Cancelled = 4
     }
 }

@@ -1,3 +1,4 @@
+using api.Infrastructure.Errors;
 using Infrastructure.Data;
 namespace api;
 
@@ -11,6 +12,8 @@ public class Program
 
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+        builder.Services.AddProblemDetails();
+        builder.Services.AddExceptionHandler<DomainExceptionHandler>();
 
         builder.Services.AddCors(options =>
         {
@@ -35,6 +38,9 @@ public class Program
         app.MapDefaultEndpoints();
 
         await app.Services.InitialiseDatabaseAsync();
+
+        app.UseExceptionHandler();
+
 
         app.UseCors("CorsPolicy");
 

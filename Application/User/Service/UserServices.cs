@@ -1,7 +1,8 @@
 ﻿using Application.Interfaces;
-using Domain.Dto;
 using Domain.Entities;
+using Domain.Exceptions;
 using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.User.Service
 {
@@ -15,10 +16,14 @@ namespace Application.User.Service
         }
 
 
-        public async Task<UserApp> GetUsers(CancellationToken cancellationToken)
+        public async Task<UserApp> GetUserAsync(CancellationToken cancellationToken)
         {
 
-            var user = await context.Users.FirstOrDefaultAsync(x => x.DisplayName == "Sam");
+            var user = await context.Users.FirstOrDefaultAsync(x => x.DisplayName == "Sam", cancellationToken);
+            if (user == null)
+            {
+                throw new UserNotFoundException("Sam");
+            }
             return user;
 
         }

@@ -5,6 +5,6 @@ namespace Application.Interfaces
 {
     public interface IUserServices
     {
-        Task<UserApp> GetUsers(CancellationToken cancellationToken);
+        Task<UserApp> GetUserAsync(CancellationToken cancellationToken);
     }
 }

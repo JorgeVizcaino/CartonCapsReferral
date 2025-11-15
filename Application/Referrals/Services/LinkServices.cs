@@ -18,7 +18,7 @@ namespace Application.Referrals.Services
         /// </summary>
         /// <param name="referral">The referral entity to generate data for.</param>
         /// <returns>A tuple containing the URL and single-use token.</returns>
-        public Task<(string Url, string Token, string slug)> CreateAsync(Referral referral)
+        public Task<(string Url, string Token, string Slug)> CreateAsync(Referral referral)
         {
             // Generate a unique, hard-to-guess token (base64 + referral ID)
             string token = GenerateSecureToken(referral.Id);

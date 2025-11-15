@@ -1,6 +1,7 @@
-﻿using Domain.Entities;
+using Application.Interfaces;
+using Application.Referrals.Models;
+using Domain.Entities;
 using Infrastructure.Data;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace api.GraphQL
@@ -17,5 +18,8 @@ namespace api.GraphQL
         [UseProjection]
         public Task<Referral?> GeReferralById([Service] IAppDbContext context, Guid id)
             => context.Referrals.AsNoTracking().FirstOrDefaultAsync(u => u.Id == id);
+
+        public Task<ReferralStats> GetReferralStats([Service] IReferralService referralService, Guid userId, CancellationToken cancellationToken)
+            => referralService.GetStatsAsync(userId, cancellationToken);
     }
 }
